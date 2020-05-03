@@ -1,0 +1,28 @@
+version : "3"
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      #now we are now writing <from>:<to> we are just writing <to> it says dont copy this folder if already present in the docker directory
+      - /var/app/node_modules
+      # now we are writing <from>:<to> so in this case all the files from current folder will be coppied inside th given folder in docker
+      - .:/var/app
+    #command : ["npm", "start"] we can also mention command here
+    # we have already mentioned thi command in the dockerfile
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+        
+    volumes:
+      #now we are now writing <from>:<to> we are just writing <to> it says dont copy this folder if already present in the docker directory
+      - /var/app/node_modules
+      # now we are writing <from>:<to> so in this case all the files from current folder will be coppied inside th given folder in docker
+      - .:/var/app
+    command: ["npm", "run" ,"test"] 
+      #we can also mention command here
+  
